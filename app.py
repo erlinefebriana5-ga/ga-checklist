@@ -15,17 +15,23 @@ shift_data = {
     "Closing": "10:00 AM - 09:00 PM",
 }
 
-tasks = [
+tasks_operational = [
     "Masuk kerja",
     "Standby di Meja Reception",
     "Checklist Area (Kebersihan & Kerapian)",
     "Balas Email",
     "Report Cardax",
     "Lapor kerusakan ke Maintenance",
-    "Administrasi (LTF / Timesheet / Exit Permit / Power BI)",
     "Membuat Weekly Schedule",
     "Membuat Jadwal Onsite",
     "Persiapan Opening / Closing",
+]
+
+tasks_admin = [
+    "LTF",
+    "Timesheet",
+    "Exit Permit",
+    "Power BI",
 ]
 
 nama_ga = st.selectbox("Pilih Nama GA", ga_list)
@@ -35,7 +41,14 @@ st.write(f"Jam Kerja: {shift_data[shift]}")
 st.write("### Checklist Tugas")
 
 checked_tasks = []
-for t in tasks:
+
+st.write("### Operational")
+for t in tasks_operational:
+    if st.checkbox(t):
+        checked_tasks.append(t)
+
+st.write("### Administrasi")
+for t in tasks_admin:
     if st.checkbox(t):
         checked_tasks.append(t)
 
