@@ -39,7 +39,7 @@ for t in tasks:
         checked_tasks.append(t)
 
 if st.button("Simpan Data"):
-     try:
+    try:
         import gspread
         from google.oauth2.service_account import Credentials
 
@@ -53,7 +53,6 @@ if st.button("Simpan Data"):
         )
 
         client = gspread.authorize(creds)
-
         sheet = client.open("GA Time Management").sheet1
 
         now = datetime.now()
