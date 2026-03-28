@@ -55,7 +55,8 @@ if st.button("Simpan Data"):
         client = gspread.authorize(creds)
         sheet = client.open("GA Time Management").sheet1
 
-        now = datetime.now()
+        wita = pytz.timezone("Asia/Makassar")
+        now = datetime.now(wita)
 
         for task in checked_tasks:
             sheet.append_row([
