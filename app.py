@@ -39,13 +39,36 @@ for t in tasks:
         checked_tasks.append(t)
 
 if st.button("Simpan Data"):
-    tanggal = datetime.now().strftime("%Y-%m-%d")
+     try:
+        import gspread
+        from google.oauth2.service_account import Credentials
 
-    with open("report_ga.csv", mode="a", newline="") as file:
-        writer = csv.writer(file)
+        scope = [
+            "https://www.googleapis.com/auth/spreadsheets",
+            "https://www.googleapis.com/auth/drive"
+        ]
 
-        for t in tasks:
-            status = "Done" if t in checked_tasks else "Pending"
-            writer.writerow([tanggal, nama_ga, shift, t, status])
+        creds = Credentials.from_service_account_info(
+            st.secrets["gcp_service_account"], scopes=scope
+        )
 
-    st.success("Data berhasil disimpan!")
+        client = gspread.authorize(creds)
+
+        sheet = client.open("GA Time Management").sheet1
+
+        now = datetime.now()
+
+        for task in checked_tasks:
+            sheet.append_row([
+                now.strftime("%Y-%m-%d"),
+                now.strftime("%H:%M:%S"),
+                nama_ga,
+                shift,
+                task,
+                "Done"
+            ])
+
+        st.success("Data berhasil disimpan ke Google Sheet!")
+
+    except Exception as e:
+        st.error(f"Error: {e}")
