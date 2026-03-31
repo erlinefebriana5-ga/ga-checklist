@@ -1,4 +1,29 @@
 import streamlit as st
+
+# 🔐 Password system
+def check_password():
+    def password_entered():
+        if st.session_state["password"] == "GA123":
+            st.session_state["password_correct"] = True
+        else:
+            st.session_state["password_correct"] = False
+
+    if "password_correct" not in st.session_state:
+        st.text_input("Masukkan Password", type="password", key="password", on_change=password_entered)
+        return False
+
+    elif not st.session_state["password_correct"]:
+        st.text_input("Masukkan Password", type="password", key="password", on_change=password_entered)
+        st.error("Password salah")
+        return False
+
+    else:
+        return True
+
+
+if not check_password():
+    st.stop()
+import streamlit as st
 import csv
 from datetime import datetime
 import pytz
