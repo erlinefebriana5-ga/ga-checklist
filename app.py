@@ -3,7 +3,7 @@ import streamlit as st
 # 🔐 Password system
 def check_password():
     def password_entered():
-        if st.session_state["password"] == "GA123":
+        if st.session_state["password"] == "GATERBAIK2026":
             st.session_state["password_correct"] = True
         else:
             st.session_state["password_correct"] = False
